@@ -200,8 +200,5 @@ FakesAssemblies/
 UnusableNodes*.xml
 */DXTempFolder/*
 
-/Metracon.Yomingo/Metracon.Yomingo.Web/convertDiagram/output.svg
-/Metracon.Yomingo/Metracon.Yomingo.Web/App_Data/
-/Metracon.Yomingo/Metracon.Yomingo.Web/widgets/scheduler/dist/
 /widgets/scheduler/dist/
 /widgets/scheduler/local_modules/
