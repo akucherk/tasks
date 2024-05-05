@@ -8,16 +8,6 @@ h1:focus {
     outline: none;
 }
 
-a, .btn-link {
-    color: #0071c1;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
 .content {
     padding-top: 1.1rem;
 }
@@ -61,4 +51,18 @@ a, .btn-link {
 
     .blazor-error-boundary::after {
         content: "An error has occurred."
+    }
+
+.card {
+    margin: 10px;
+    border-radius: 10px;
+    background-color: lightgreen;
+}
+
+    .card .card-title {
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
+    }
+
+    .card .list-group {
+        border-radius: 10px;
     }
