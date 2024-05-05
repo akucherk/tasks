@@ -23,7 +23,7 @@ namespace AKucher.Tasks.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            oid = XpoDefault.NewGuid();
+            oid = XpoDefault.NewGuid(); //TODO Is it need?
         }
     }
 }

@@ -2,48 +2,40 @@
 
 namespace AKucher.Tasks.Module.BusinessObjects
 {
-	public class TaskObject : BaseObject
-	{
-		public TaskObject(Session session) : base(session)
-		{
-		}
+    public class TaskObject : BaseObject
+    {
+        public TaskObject(Session session) : base(session)
+        {
+        }
 
-		private string index;
+        private string index;
 
-		public string Index
-		{
-			get => index;
-			set => SetPropertyValue(nameof(Index), ref index, value);
-		}
+        public string Index
+        {
+            get => index;
+            set => SetPropertyValue(nameof(Index), ref index, value);
+        }
 
-		private string name;
+        private string name;
 
-		public string Name
-		{
-			get => name;
-			set => SetPropertyValue(nameof(Name), ref name, value);
-		}
+        public string Name
+        {
+            get => name;
+            set => SetPropertyValue(nameof(Name), ref name, value);
+        }
 
-		private uint order;
+        private uint order;
 
-		public uint Order
-		{
-			get => order;
-			set => SetPropertyValue(nameof(Order), ref order, value);
-		}
+        public uint Order
+        {
+            get => order;
+            set => SetPropertyValue(nameof(Order), ref order, value);
+        }
 
-		private Container container;
+        public const string TaskObjectItemsAssociationName = "TaskObjectItemsAssociationName";
 
-		[Association(Container.ContainerTasksAssociationName)]
-		public Container Container
-		{
-			get => container;
-			set => SetPropertyValue(nameof(Container), ref container, value);
-		}
-		public const string TaskObjectItemsAssociationName = "TaskObjectItemsAssociationName";
-
-		[Aggregated]
-		[Association(TaskObjectItemsAssociationName)]
-		public XPCollection<TaskItem> Items => GetCollection<TaskItem>(nameof(Items));
-	}
+        [Aggregated]
+        [Association(TaskObjectItemsAssociationName)]
+        public XPCollection<TaskItem> Items => GetCollection<TaskItem>(nameof(Items));
+    }
 }
