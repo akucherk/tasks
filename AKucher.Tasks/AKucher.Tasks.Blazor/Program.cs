@@ -1,5 +1,6 @@
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
+using AKucher.Tasks.Module.BusinessLogic;
 
 namespace AKucher.Tasks.Blazor
 {
@@ -16,7 +17,7 @@ namespace AKucher.Tasks.Blazor
             // Initialize default dataLayer
             var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
             XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
-            //CreateTestData();
+            Helper.CreateTestData();
 
             var app = builder.Build();
 
@@ -39,23 +40,5 @@ namespace AKucher.Tasks.Blazor
 
             app.Run();
         }
-
-        //private static void CreateTestData()
-        //{
-        //    const string defaultTaskObjectName = "Test-123";
-        //    using (var uow = new UnitOfWork())
-        //    {
-        //        var task = uow.Query<TaskObject>().FirstOrDefault(x => x.Index == defaultTaskObjectName);
-        //        if (task == null)
-        //        {
-        //            task = new TaskObject(uow);
-        //            task.Index = defaultTaskObjectName;
-        //            task.Items.Add(new TaskItem(uow) { Description = "Test item" });
-        //            task.Items.Add(new TaskItem(uow) { Description = "Test item 2" });
-        //            task.Items.Add(new TaskItem(uow) { Description = "Test item 3" });
-        //            uow.CommitChanges();
-        //        }
-        //    }
-        //}
     }
 }

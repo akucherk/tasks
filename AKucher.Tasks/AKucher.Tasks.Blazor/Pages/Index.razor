@@ -10,6 +10,7 @@
     @foreach (var task in Tasks)
     {
         <span>@task.Index</span>
+        <br />
     }
 }
 
@@ -21,7 +22,7 @@
         Tasks = new List<TaskObject>();
         using (var uow = new UnitOfWork())
         {
-            Tasks = uow.Query<TaskObject>().ToList();
+            Tasks = uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
         }
 
         base.OnInitialized();
