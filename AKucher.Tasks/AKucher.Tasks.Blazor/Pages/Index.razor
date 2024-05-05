@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@implements IDisposable
+
 <PageTitle>Tasks</PageTitle>
 
 @if (Tasks is not null)
@@ -14,12 +16,19 @@
 @code {
     List<TaskObject> Tasks { get; set; }
 
+    private UnitOfWork Uow { get; set; }
+
     protected override void OnInitialized()
     {
         Tasks = new List<TaskObject>();
-        var uow = new UnitOfWork();
-        Tasks = uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
+        Uow = new UnitOfWork();
+        Tasks = Uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
 
         base.OnInitialized();
+    }
+
+    public void Dispose()
+    {
+        Uow?.Dispose();
     }
 }
