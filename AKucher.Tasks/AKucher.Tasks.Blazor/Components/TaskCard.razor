@@ -1,0 +1,12 @@
+﻿<h3>@Task.Index</h3>
+
+@foreach (var item in Task.Items.OrderBy(x => x.Order).ToArray())
+{
+    <TaskItemCard TaskItem="item"></TaskItemCard>
+    <br />
+}
+
+@code {
+    [Parameter]
+    public TaskObject Task { get; set; }
+}

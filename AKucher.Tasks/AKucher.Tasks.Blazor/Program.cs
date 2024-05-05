@@ -1,6 +1,5 @@
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
-using AKucher.Tasks.Module.BusinessLogic;
 
 namespace AKucher.Tasks.Blazor
 {
@@ -17,7 +16,7 @@ namespace AKucher.Tasks.Blazor
             // Initialize default dataLayer
             var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
             XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
-            Helper.CreateTestData();
+            //AKucher.Tasks.Module.BusinessLogic.Helper.CreateTestData();
 
             var app = builder.Build();
 

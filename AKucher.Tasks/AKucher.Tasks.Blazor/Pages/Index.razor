@@ -1,15 +1,12 @@
 ﻿@page "/"
 
-@using AKucher.Tasks.Module.BusinessObjects
-@using DevExpress.Xpo
-
 <PageTitle>Tasks</PageTitle>
 
 @if (Tasks is not null)
 {
     @foreach (var task in Tasks)
     {
-        <span>@task.Index</span>
+        <TaskCard Task="task"></TaskCard>
         <br />
     }
 }
@@ -20,10 +17,8 @@
     protected override void OnInitialized()
     {
         Tasks = new List<TaskObject>();
-        using (var uow = new UnitOfWork())
-        {
-            Tasks = uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
-        }
+        var uow = new UnitOfWork();
+        Tasks = uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
 
         base.OnInitialized();
     }
