@@ -1,5 +1,3 @@
-using AKucher.Tasks.Blazor.Data;
-
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
 
@@ -14,7 +12,6 @@ namespace AKucher.Tasks.Blazor
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
 
             // Initialize default dataLayer
             var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
