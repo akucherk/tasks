@@ -8,7 +8,7 @@
 {
     @foreach (var task in Tasks)
     {
-        <TaskCard Task="task"></TaskCard>
+        <TaskCard Task="task" TaskChanged="TaskChanged"></TaskCard>
     }
 }
 
@@ -27,6 +27,11 @@
         }
 
         base.OnInitialized();
+    }
+
+    private void TaskChanged()
+    {
+        Uow.CommitChanges();
     }
 
     public void Dispose()

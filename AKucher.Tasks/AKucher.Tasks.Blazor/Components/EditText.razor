@@ -1,0 +1,36 @@
+﻿@if (@Editing)
+{
+    <input @ref=editInput type="text" @bind="@Text" @onblur="ToggleEditing" />
+}
+else
+{
+    <div @onclick="ToggleEditing">@Text</div>
+}
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public string Text { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnChanged { get; set; }
+
+    private ElementReference editInput;
+
+    private bool Editing { get; set; }
+
+    private async Task ToggleEditing()
+    {
+        Editing = !Editing;
+
+        if (Editing)
+        {
+            await Task.Delay(1);
+            await editInput.FocusAsync();
+        }
+        else
+        {
+            await OnChanged.InvokeAsync(Text);
+        }
+    }
+}

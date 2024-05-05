@@ -1,17 +1,23 @@
 ﻿<div class="card">
     <div class="card-body">
-        <h3 class="card-title">@Task.Index</h3>
+        <h3 class="card-title">
+            <EditText Text="@Task.Index" OnChanged="TaskIndexChanged"></EditText>
+        </h3>
         <ul class="list-group list-group-flush">
             @foreach (var item in Task.Items.OrderBy(x => x.Order).ToArray())
             {
-                <li class="list-group-item"><TaskItemCard TaskItem="item"></TaskItemCard></li>
+                <li class="list-group-item">
+                    <TaskItemCard TaskItem="item"></TaskItemCard>
+                </li>
             }
         </ul>
         <h5 style="margin-top: 10px;">TODO</h5>
         <ul class="list-group list-group-flush">
             @foreach (var item in Task.Items.OrderBy(x => x.Order).ToArray())
             {
-                <li class="list-group-item"><TaskItemCard TaskItem="item"></TaskItemCard></li>
+                <li class="list-group-item">
+                    <TaskItemCard TaskItem="item"></TaskItemCard>
+                </li>
             }
         </ul>
     </div>
@@ -19,5 +25,17 @@
 
 @code {
     [Parameter]
+    [EditorRequired]
     public TaskObject Task { get; set; }
+
+    [Parameter]
+    public EventCallback TaskChanged { get; set; }
+
+    private async Task TaskIndexChanged(string val)
+    {
+        Task.Index = val;
+
+        await TaskChanged.InvokeAsync();
+
+    }
 }
