@@ -19,9 +19,12 @@
 
     protected override void OnInitialized()
     {
-        Tasks = new List<TaskObject>();
-        Uow = new UnitOfWork();
-        Tasks = Uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
+        if (Tasks == null)
+        {
+            Tasks = new List<TaskObject>();
+            Uow = new UnitOfWork();
+            Tasks = Uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
+        }
 
         base.OnInitialized();
     }
