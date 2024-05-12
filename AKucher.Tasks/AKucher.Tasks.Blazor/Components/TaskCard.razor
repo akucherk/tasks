@@ -7,7 +7,7 @@
             @foreach (var item in Task.Items.Where(x => x.Completed).OrderBy(x => x.Order).ToArray())
             {
                 <li class="list-group-item">
-                    <TaskItemCard TaskItem="item"></TaskItemCard>
+                    <TaskItemCard TaskItem="item" ItemChanged="@TaskItemChanged"></TaskItemCard>
                 </li>
             }
         </ul>
@@ -35,6 +35,11 @@
     {
         Task.Index = val;
 
+        await TaskChanged.InvokeAsync();
+    }
+
+    private async Task TaskItemChanged()
+    {
         await TaskChanged.InvokeAsync();
     }
 }
