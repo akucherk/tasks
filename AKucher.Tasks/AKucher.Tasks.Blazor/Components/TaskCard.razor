@@ -4,7 +4,7 @@
             <EditText Text="@Task.Index" OnChanged="TaskIndexChanged"></EditText>
         </h3>
         <ul class="list-group list-group-flush">
-            @foreach (var item in Task.Items.OrderBy(x => x.Order).ToArray())
+            @foreach (var item in Task.Items.Where(x => x.Completed).OrderBy(x => x.Order).ToArray())
             {
                 <li class="list-group-item">
                     <TaskItemCard TaskItem="item"></TaskItemCard>
@@ -13,7 +13,7 @@
         </ul>
         <h5 style="margin-top: 10px;">TODO</h5>
         <ul class="list-group list-group-flush">
-            @foreach (var item in Task.Items.OrderBy(x => x.Order).ToArray())
+            @foreach (var item in Task.Items.Where(x => !x.Completed).OrderBy(x => x.Order).ToArray())
             {
                 <li class="list-group-item">
                     <TaskItemCard TaskItem="item"></TaskItemCard>
@@ -36,6 +36,5 @@
         Task.Index = val;
 
         await TaskChanged.InvokeAsync();
-
     }
 }

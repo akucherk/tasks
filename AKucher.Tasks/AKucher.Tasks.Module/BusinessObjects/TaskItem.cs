@@ -24,6 +24,14 @@ namespace AKucher.Tasks.Module.BusinessObjects
 			set => SetPropertyValue(nameof(Description), ref description, value);
 		}
 
+		private bool completed;
+
+		public bool Completed
+        {
+			get => completed;
+			set => SetPropertyValue(nameof(Completed), ref completed, value);
+		}
+
 		private TaskObject task;
 
 		[Association(TaskObject.TaskObjectItemsAssociationName)]
