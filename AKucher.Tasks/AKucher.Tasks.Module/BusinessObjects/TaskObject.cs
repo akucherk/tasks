@@ -37,17 +37,5 @@ namespace AKucher.Tasks.Module.BusinessObjects
         [Aggregated]
         [Association(TaskObjectItemsAssociationName)]
         public XPCollection<TaskItem> Items => GetCollection<TaskItem>(nameof(Items));
-
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
-            base.OnChanged(propertyName, oldValue, newValue);
-
-            if (IsLoading || IsSaving)
-            {
-                return;
-            }
-
-            ((UnitOfWork)Session).CommitChanges();
-        }
     }
 }

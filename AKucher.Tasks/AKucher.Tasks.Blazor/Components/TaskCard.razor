@@ -1,50 +1,64 @@
 ﻿<div class="card">
-    <div class="card-body">
-        <div class="card-title">
-            <div class="container text-center">
-                <div class="row row-cols-auto">
-                    <div class="col">
-                        <h4><EditText @bind-Text="@Task.Index" ></EditText></h4>
-                    </div>
-                    <div class="col">
-                        <i class="bi-arrow-up-square" style="font-size: 1.5rem; color: darkgreen;" @onclick="UpClick"></i>
-                    </div>
-                    <div class="col">
-                        <i class="bi-arrow-down-square" style="font-size: 1.5rem; color: darkgreen;" @onclick="DownClick"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ul class="list-group list-group-flush">
-            @foreach (var item in Task.Items.Where(x => x.Completed).OrderBy(x => x.Order).ToArray())
-            {
-                <li class="list-group-item">
-                    <TaskItemCard TaskItem="item" ></TaskItemCard>
-                </li>
-            }
-        </ul>
-        <h5 style="margin-top: 10px;">TODO</h5>
-        <ul class="list-group list-group-flush">
-            @foreach (var item in Task.Items.Where(x => !x.Completed).OrderBy(x => x.Order).ToArray())
-            {
-                <li class="list-group-item">
-                    <TaskItemCard TaskItem="item"></TaskItemCard>
-                </li>
-            }
-        </ul>
-    </div>
+	<div class="card-body">
+		<div class="card-title">
+			<div class="container text-center">
+				<div class="row row-cols-auto">
+					<div class="col">
+						<h4><EditText @bind-Text="@Task.Index"></EditText></h4>
+					</div>
+					<div class="col">
+						<i class="bi-arrow-up-square" style="font-size: 1.5rem; color: darkgreen;" @onclick="UpClick"></i>
+					</div>
+					<div class="col">
+						<i class="bi-arrow-down-square" style="font-size: 1.5rem; color: darkgreen;" @onclick="DownClick"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="list-group list-group-flush">
+			@foreach (var item in Task.Items.Where(x => x.Completed).OrderBy(x => x.Order).ToArray())
+			{
+				<li class="list-group-item">
+					<TaskItemCard TaskItem="item"></TaskItemCard>
+				</li>
+			}
+		</ul>
+		<h5 style="margin-top: 10px;">TODO</h5>
+		<ul class="list-group list-group-flush">
+			@foreach (var item in Task.Items.Where(x => !x.Completed).OrderBy(x => x.Order).ToArray())
+			{
+				<li class="list-group-item">
+					<TaskItemCard TaskItem="item"></TaskItemCard>
+				</li>
+			}
+		</ul>
+	</div>
 </div>
 
 @code {
-    [Parameter]
-    [EditorRequired]
-    public TaskObject Task { get; set; }
+	[Parameter]
+	[EditorRequired]
+	public TaskObject Task { get; set; }
 
-    private async Task UpClick()
-    {
-    }
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
 
-    private async Task DownClick()
-    {
-    }
+		Task.Changed += (s, e) =>
+		{
+			if (e.Reason == ObjectChangeReason.PropertyChanged)
+			{
+				Task.Save();
+				((UnitOfWork)Task.Session).CommitChanges();
+			}
+		};
+	}
+
+	private async Task UpClick()
+	{
+	}
+
+	private async Task DownClick()
+	{
+	}
 }

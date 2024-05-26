@@ -40,17 +40,5 @@ namespace AKucher.Tasks.Module.BusinessObjects
             get => task;
             set => SetPropertyValue(nameof(Task), ref task, value);
         }
-
-        protected override void OnChanged(string propertyName, object oldValue, object newValue)
-        {
-            base.OnChanged(propertyName, oldValue, newValue);
-
-            if (IsLoading || IsSaving)
-            {
-                return;
-            }
-
-            ((UnitOfWork)Session).CommitChanges();
-        }
     }
 }
