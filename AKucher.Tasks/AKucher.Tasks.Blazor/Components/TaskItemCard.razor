@@ -1,16 +1,7 @@
-﻿<EditText Text="@TaskItem.Description" OnChanged="DescriptionChanged"></EditText>
+﻿<EditText @bind-Text="@TaskItem.Description"></EditText>
 
 @code {
     [Parameter]
+    [EditorRequired]
     public TaskItem TaskItem { get; set; }
-
-    [Parameter]
-    public EventCallback ItemChanged { get; set; }
-
-    private async Task DescriptionChanged(string val)
-    {
-        TaskItem.Description = val;
-
-        await ItemChanged.InvokeAsync();
-    }
 }

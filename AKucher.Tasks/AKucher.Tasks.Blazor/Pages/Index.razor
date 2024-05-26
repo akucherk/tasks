@@ -7,47 +7,42 @@
 
 @if (Tasks is not null)
 {
-    @foreach (var task in Tasks)
-    {
-        <TaskCard Task="task" TaskChanged="TaskChanged"></TaskCard>
-    }
+	@foreach (var task in Tasks)
+	{
+		<TaskCard Task="task"></TaskCard>
+	}
 }
 
 @code {
-    private static readonly RWLock RWLock = new RWLock();
+	private static readonly RWLock RWLock = new RWLock();
 
-    List<TaskObject> Tasks { get; set; }
+	List<TaskObject> Tasks { get; set; }
 
-    private UnitOfWork Uow { get; set; }
+	private UnitOfWork Uow { get; set; }
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
 
-        if (Tasks == null)
-        {
-            using (RWLock.WriteLock())
-            {
-                if (Tasks == null)
-                {
-                    Uow = new UnitOfWork();
-                    Tasks = Uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
-                }
-            }
-        }
-    }
+		if (Tasks == null)
+		{
+			using (RWLock.WriteLock())
+			{
+				if (Tasks == null)
+				{
+					Uow = new UnitOfWork();
+					Tasks = Uow.Query<TaskObject>().OrderBy(x => x.Order).ToList();
+				}
+			}
+		}
+	}
 
-    private void TaskChanged()
-    {
-        Uow.CommitChanges();
-    }
-
-    public void Dispose()
-    {
-        if (Uow != null)
-        {
-            Uow?.Dispose();
-            Uow = null;
-        }
-    }
+	public void Dispose()
+	{
+		if (Uow != null)
+		{
+			Uow?.Dispose();
+			Uow = null;
+		}
+	}
 }

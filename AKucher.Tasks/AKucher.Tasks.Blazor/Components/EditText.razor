@@ -13,7 +13,7 @@ else
     public string Text { get; set; }
 
     [Parameter]
-    public EventCallback<string> OnChanged { get; set; }
+    public EventCallback<string> TextChanged { get; set; }
 
     private ElementReference editInput;
 
@@ -30,7 +30,7 @@ else
         }
         else
         {
-            await OnChanged.InvokeAsync(Text);
+            await TextChanged.InvokeAsync(Text);
         }
     }
 }
